@@ -1,4 +1,4 @@
-package org.example.backend.user.controller.request;
+package org.example.backend.auth.controller.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

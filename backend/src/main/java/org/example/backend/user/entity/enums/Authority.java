@@ -3,6 +3,6 @@ package org.example.backend.user.entity.enums;
 import lombok.Getter;
 
 @Getter
-public enum UserRole {
+public enum Authority {
   USER, ADMIN
 }

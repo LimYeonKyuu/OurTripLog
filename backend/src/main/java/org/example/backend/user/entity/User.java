@@ -8,9 +8,7 @@ import jakarta.persistence.Id;
 import lombok.*;
 import org.example.backend.base.entity.BaseEntity;
 import org.example.backend.user.dto.UserDto;
-import org.example.backend.user.entity.enums.UserRole;
-
-import java.time.LocalDateTime;
+import org.example.backend.user.entity.enums.Authority;
 
 @Entity(name = "users")
 @Builder
@@ -28,17 +26,18 @@ public class User extends BaseEntity {
 
     private String profileImage;
 
-    private LocalDateTime lastLoginTime;
+    private Long lastLoginAt;
 
     @Enumerated(value = EnumType.STRING)
-    private UserRole role;
+    private Authority authority;
 
     public static User join(UserDto dto) {
         return User.builder()
                 .id(dto.getId())
                 .nickname(dto.getNickname())
                 .password(dto.getPassword())
-                .role(UserRole.USER)
+                .authority(Authority.USER)
+                .lastLoginAt(System.currentTimeMillis())
                 .build();
     }
 }
