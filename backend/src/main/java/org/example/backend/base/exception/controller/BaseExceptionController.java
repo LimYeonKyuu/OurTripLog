@@ -1,6 +1,7 @@
 package org.example.backend.base.exception.controller;
 
 import org.example.backend.base.dto.ExceptionResponse;
+import org.example.backend.base.exception.AlreadyExistException;
 import org.example.backend.base.exception.DoNotExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,4 +20,13 @@ public class BaseExceptionController {
             .build();
     return ResponseEntity.badRequest().body(response);
   }
+    @ExceptionHandler(AlreadyExistException.class)
+    public ResponseEntity<ExceptionResponse> handleAlreadyExistException(AlreadyExistException e) {
+    ExceptionResponse response =
+        ExceptionResponse.builder()
+            .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+            .message(e.getMessage())
+            .build();
+    return ResponseEntity.badRequest().body(response);
+    }
 }
