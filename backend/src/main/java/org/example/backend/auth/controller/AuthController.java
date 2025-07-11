@@ -3,6 +3,7 @@ package org.example.backend.auth.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.backend.auth.controller.request.JoinRequest;
 import org.example.backend.auth.controller.request.LoginRequest;
+import org.example.backend.auth.controller.request.RefreshTokenRequest;
 import org.example.backend.auth.controller.response.JwtResponse;
 import org.example.backend.auth.service.AuthService;
 import org.example.backend.user.dto.UserDto;
@@ -19,15 +20,21 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
 
 
-    @PostMapping("/api/ourtriplog/auth/join")
-    public ResponseEntity<Void> join(@RequestBody JoinRequest request) {
-        authService.join(UserDto.from(request, passwordEncoder.encode(request.getPassword())));
+    @PostMapping("/api/ourtriplog/auth/signup")
+    public ResponseEntity<Void> signup(@RequestBody JoinRequest request) {
+        authService.signup(UserDto.from(request, passwordEncoder.encode(request.getPassword())));
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/api/ourtriplog/auth/signin")
     public ResponseEntity<JwtResponse> signIn(@RequestBody LoginRequest request) {
         JwtResponse jwtResponse = JwtResponse.from(authService.signIn(UserDto.from(request)));
+        return ResponseEntity.ok(jwtResponse);
+    }
+
+    @PostMapping("/api/ourtriplog/auth/refresh")
+    public ResponseEntity<JwtResponse> refreshToken(@RequestBody RefreshTokenRequest request) {
+        JwtResponse jwtResponse = JwtResponse.from(authService.refreshToken(request.getRefreshToken()));
         return ResponseEntity.ok(jwtResponse);
     }
 }
