@@ -26,8 +26,6 @@ public class User extends BaseEntity {
 
     private String profileImage;
 
-    private Long lastLoginAt;
-
     @Enumerated(value = EnumType.STRING)
     private Authority authority;
 
@@ -37,7 +35,6 @@ public class User extends BaseEntity {
                 .nickname(dto.getNickname())
                 .password(dto.getPassword())
                 .authority(Authority.USER)
-                .lastLoginAt(System.currentTimeMillis())
                 .build();
     }
 }

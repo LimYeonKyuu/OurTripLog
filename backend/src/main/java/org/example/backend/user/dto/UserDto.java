@@ -18,8 +18,6 @@ public class UserDto {
 
     private String authority;
 
-    private Long lastLoginAt;
-
     public static UserDto from(JoinRequest request, String encodedPassword) {
         return UserDto.builder()
                 .id(request.getId())

@@ -51,8 +51,6 @@ public class AuthService {
         User user = userRepository.findById(dto.getId())
                 .orElseThrow(() -> new UnauthorizedException("존재하지 않는 사용자입니다."));
 
-        user.setLastLoginAt(System.currentTimeMillis());
-
         // 4. Refresh Token 저장
         refreshTokenRepository.save(RefreshToken.builder()
                 .userId(user.getId())
